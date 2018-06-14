@@ -1,0 +1,114 @@
+module Main exposing (..)
+
+import Html exposing (Html, text, div, h1, img, p, br, form, input)
+import Html.Attributes exposing (src, name, id, class, value, placeholder)
+import Html.Events exposing (onSubmit, onInput)
+import List
+import String
+import Date
+
+
+---- MODEL ----
+
+output : List String -> Html msg
+output log =
+    log
+        |> List.map (\s -> String.append "> " s)
+        |> List.map text
+        |> List.intersperse (br [] [])
+        |> p []
+
+
+type alias Model =
+    { now_date : Maybe Date
+    , exec_log : List String
+    , input_cmd : String
+    }
+
+initModel : Model
+initModel =
+    { now_date = Noting
+    , exec_log = []
+    , input_cmd = ""
+    }
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( initModel, Cmd.none )
+
+const_head =
+    p []
+    [ text "Welcome to kokeshi 18.06.14 LTS (B.S./InfoSciEng 2.5.2-1057-uec x86_64)"
+    , br [] []
+    , br [] []
+    , text "* Documentation:  http://help.ubuntu.com"
+    , br [] []
+    , text "* Management:     http://landscape.canonical.com"
+    , br [] []
+    , text "* Support:        http://ubuntu.com/advantage"
+    , br [] []
+    , br [] []
+    , text "0 packages can be updated."
+    , br [] []
+    , text "0 update is a security update."
+    , br [] []
+    , br [] []
+    , br [] []
+    , text "*** System restart required ***"
+    , br [] []
+    , text "Last login: Fri Jun  8 03:30:27 2018 from 153.230.0.162"
+    , br [] []
+    ]
+
+---- UPDATE ----
+
+
+type Msg
+    = NoOp
+    | ExecCmd
+    | InputCmd String
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        NoOp ->
+            (model, Cmd.none)
+
+        InputCmd s ->
+            ( { model | input_cmd = s }, Cmd.none )
+
+        ExecCmd ->
+            ( { model | exec_log = model.exec_log ++ ( model.input_cmd :: [] ), input_cmd = "" }, Cmd.none)
+
+
+---- VIEW ----
+
+
+view : Model -> Html Msg
+view model =
+    div []
+        [ const_head
+        , output model.exec_log
+        , form [ onSubmit ExecCmd ]
+                [ p []
+                    [ text "> "
+                    , input [ onInput InputCmd, value model.input_cmd, class "console" ] []
+                    ]
+            ]
+        ]
+
+
+
+---- PROGRAM ----
+
+
+main : Program Never Model Msg
+main =
+    Html.program
+        { view = view
+        , init = init
+        , update = update
+        , subscriptions = always Sub.none
+        }

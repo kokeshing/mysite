@@ -1,0 +1,13 @@
+body {
+    font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    text-align: left;
+    background: #1C171C;
+    color: #3DF83F;
+}
+
+.console {
+    background: #1C171C;
+    color: #3DF83F;
+    border: none;
+}
