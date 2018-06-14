@@ -13,11 +13,10 @@ type alias Model =
     }
 
 
-init : ( Model, Cmd Msg )
+init : Model
 init =
     { now_date = Nothing
     }
-     ! [ getCurrentDate ]
 
 
 getCurrentDate : Cmd Msg

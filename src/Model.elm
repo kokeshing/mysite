@@ -14,8 +14,8 @@ type alias Model =
     , consoleModel : Console.Model
     }
 
-init : ( Model, Msg )
+init : Model
 init =
-    { ( welcomeModel, WelcomeMsg ) = Welcome.init
-    , ( consoleModel, Cmd.none ) = Console.init
+    { welcomeModel = Welcome.init
+    , consoleModel = Console.init
     }
