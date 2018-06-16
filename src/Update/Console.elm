@@ -14,35 +14,36 @@ update msg model =
             ( { model | input_cmd = str }, Cmd.none )
 
         ExecCmd ->
-            case trim model.input_cmd of
-                "pwd" ->
+            if trim model.input_cmd == "pwd" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ execed_pwd ++ ( "" :: [] ), input_cmd = "" }, Cmd.none )
 
-                "ls" ->
+            else if  trim model.input_cmd == "ls" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ execed_ls ++ ( "" :: [] ), input_cmd = "" }, Cmd.none )
 
-                "cd" ->
+            else if  trim model.input_cmd == "cd " then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, load "http://kokeshing.com" )
 
-                "cd twitter(priv.)" ->
+            else if  trim model.input_cmd == "cd twitter(priv.)" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, load "https://twitter.com/kokeshing_" )
 
-                "cd twitter(univ.)" ->
+            else if  trim model.input_cmd == "cd twitter(univ.)" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, load "https://twitter.com/chrysaor1126" )
 
-                "cd github" ->
+            else if  trim model.input_cmd == "cd github" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, load "https://github.com/kokeshing" )
 
-                "exit" ->
+            else if  trim model.input_cmd == "exit" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, back 1 )
 
-                "" ->
+            else if  trim model.input_cmd == "" then
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, Cmd.none )
 
-                _ ->
+            else
                     ( { model | exec_log = model.exec_log ++ ( ( "guest@kokeshing.com:/ $ " ++ model.input_cmd ) :: [] ) ++ ( ( "No command '" ++ model.input_cmd ++ "' found" ) :: [] ) ++ ( "" :: [] ), input_cmd = "" }, Cmd.none )
 
 
+execed_pwd : List String
 execed_pwd = ( "http://kokeshing.com" :: [] )
 
+execed_ls : List String
 execed_ls = ( " github twitter(priv.) twitter(univ.) about_me.txt" :: [] )
