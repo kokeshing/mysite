@@ -9,7 +9,7 @@ import Model.Welcome exposing (Msg(..), Model)
 view : Model -> Html Msg
 view model =
     p []
-    [ text "Welcome to kokeshi 18.06.14 LTS (B.S./InfoSciEng 2.5.2-1057-uec x86_64)"
+    [ text "Welcome to kokeshing.com 18.06.14 LTS (B.S./InfoSciEng 2.5.2-1057-uec x86_64)"
     , br [] []
     , br [] []
     , text "* Documentation:  http://help.ubuntu.com"
