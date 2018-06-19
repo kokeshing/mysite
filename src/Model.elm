@@ -16,6 +16,6 @@ type alias Model =
 
 init : Model
 init =
-    { welcomeModel  = Welcome.init
+    { welcomeModel = Welcome.init
     , consoleModel = Console.init
     }

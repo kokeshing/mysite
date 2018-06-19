@@ -1,6 +1,5 @@
 module Model.Console exposing (Msg(..), Model, init)
 
-
 type Msg
     = NoOp
     | InputCmd String
